@@ -394,14 +394,14 @@ resource "aws_security_group" "sg_load_balancer" {
     from_port   = 80
     to_port     = 80
     protocol    = "tcp"
-    cidr_blocks = var.public_subnet_1_CIDR
+    cidr_blocks = [var.public_subnet_1_CIDR]
   }
 
   egress {
     from_port   = 80
     to_port     = 80
     protocol    = "tcp"
-    cidr_blocks = var.public_subnet_2_CIDR
+    cidr_blocks = [var.public_subnet_2_CIDR]
   }
 
   tags = {
