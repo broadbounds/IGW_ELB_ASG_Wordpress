@@ -416,7 +416,7 @@ resource "aws_security_group" "sg_load_balancer" {
 
 # We create a target group for our application load balancer
 resource "aws_alb_target_group" "tg_load_balancer" {
-  name     = "target group load balancer"
+  name     = "target-group-load-balancer"
   port     = 80
   protocol = "HTTP"
   vpc_id   = aws_vpc.vpc.id
@@ -472,7 +472,7 @@ resource "aws_security_group" "sg_wordpress" {
     aws_vpc.vpc,
   ]
 
-  name        = "sg wordpress"
+  name        = "sg-wordpress"
   description = "Allow http inbound traffic"
   vpc_id      = aws_vpc.vpc.id
 
