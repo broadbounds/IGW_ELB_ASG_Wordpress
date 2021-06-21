@@ -467,12 +467,12 @@ resource "aws_alb_listener" "listener_load_balancer" {
 }
 
 # We create a security group for our wordpress instance
-resource "aws_security_group" "sg_wordpress" {
+resource "aws_security_group" "security_group_wordpress" {
   depends_on = [
     aws_vpc.vpc,
   ]
 
-  name        = "sg-wordpress"
+  name        = "security-group-wordpress"
   description = "Allow http inbound traffic"
   vpc_id      = aws_vpc.vpc.id
 
@@ -486,8 +486,8 @@ resource "aws_security_group" "sg_wordpress" {
    
   ingress {
     description = "allow TCP"
-    from_port   = 80
-    to_port     = 80
+    from_port   = 8080
+    to_port     = 8080
     protocol    = "tcp"
     cidr_blocks = ["0.0.0.0/0"]
   }
@@ -514,14 +514,14 @@ resource "aws_launch_configuration" "wordpress_instance" {
   image_id      = var.ec2_ami
   instance_type = var.ec2_type
   key_name      = aws_key_pair.public_ssh_key.key_name
-  security_groups = [aws_security_group.sg_wordpress.id]
+  security_groups = [aws_security_group.security_group_wordpress.id]
 
   lifecycle {
     create_before_destroy = true
   }
 
   depends_on = [
-    aws_security_group.sg_wordpress
+    aws_security_group.security_group_wordpress
   ]
 }
 
